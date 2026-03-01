@@ -1,3 +1,7 @@
 # Arquivos de variáveis de ambiente
-.env
+/.env
+/docker/.env
+
+# Composer /vendor
+/vendor/
 
