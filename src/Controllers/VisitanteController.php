@@ -2,16 +2,32 @@
 
 namespace App\Controllers;
 
-class VisitanteController
-{
+use App\Validator\BaseValidator;
+use App\Models\VisitanteModel;
+
+class VisitanteController {
+
     public function index(): void
     {
-        require __DIR__ . '/../../resources/views/visitante/index.php';
+        require_once __DIR__ . '/../../resources/views/visitante/index.php';
     }
 
-    public function store(array $data): void
+    public function store(array $data)
     {
-        // Por enquanto só debug
-        var_dump($data);
+        header('Content-Type: application/json');
+
+        echo json_encode(['status' => 'true', 'msg' => implode("\n", $data)]);
+
+        $validator = new BaseValidator();
+        $result = $validator->validateAllFields($data);
+
+        $errors=$result['errors'];
+
+        if ($errors) {
+            echo json_encode(['status' => 'false', 'msg' => implode("\n", $errors)]);
+            exit;
+        }
+
+        echo "{$data}";
     }
 }
