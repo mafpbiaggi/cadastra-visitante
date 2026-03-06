@@ -1,0 +1,20 @@
+networks:
+  cadastra_visitante:
+    name: cadastra_visitante
+
+services:
+   app_cadastra_visitante:
+    image: cadastra-visitante-app:1.0
+    build:
+      context: ${BUILD_CONTEXT}
+      dockerfile: Dockerfile
+    container_name: app_cadastra_visitante
+    env_file:
+      - .env
+    volumes:
+      - ${ROOT_DIR}:/var/www/html
+    ports:
+      - "${PORT_MAPPING}:80"
+    restart: always
+    networks:
+      - cadastra_visitante
