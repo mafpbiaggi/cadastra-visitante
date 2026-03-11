@@ -6,14 +6,14 @@ class BaseValidator {
 
     private $errors = [];
     private $rules = [
-        'dataVisita' => ['required' => 'true'],
-        'nome' => ['required' => 'true', 'max' => 30],
-        'idade' => ['required' => 'true'],
-        'telefone' => ['required' => 'false'],
-        'email' => ['required' => 'true'],
-        'frequentaIgreja' => ['required' => 'false', 'max' => 30],
-        'pedidoOracao' => ['required' => 'false', 'max' => 30],
-        'origem' => ['required' => 'true'],
+        'dataVisita' => ['required' => true],
+        'nome' => ['required' => true, 'max' => 50],
+        'idade' => ['required' => true],
+        'telefone' => ['required' => true],
+        'email' => ['required' => true],
+        'frequentaIgreja' => ['required' => false, 'max' => 70],
+        'pedidoOracao' => ['required' => false, 'max' => 70],
+        'origem' => ['required' => true],
     ];
 
     public function sanitizeField(array $data, string $field)
@@ -34,8 +34,9 @@ class BaseValidator {
     {
         if (!filter_var($field, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "E-mail inválido.";
-            return $errors;
         }
+
+        return $errors;
     }
 
     public function validateAllFields(array $data)
@@ -44,23 +45,23 @@ class BaseValidator {
         $errors = $this->errors;
 
         foreach ($rules as $field => $rule) {
-            $sanitized = $this->sanitizeField($data, $field);
+            $data[$field] = $this->sanitizeField($data, $field);
 
-            if ($rule['required'] && empty($sanitized[$field])) {
+            if ($rule['required'] && empty($data[$field])) {
                 $errors[] = "O campo {$field} é obrigatório.";
+                continue;
             }
 
-            if (isset($rule['max']) && strlen($sanitized[$field]) > $rule['max']) {
+            if (isset($rule['max']) && strlen($data[$field]) > $rule['max']) {
                 $errors[] = "O campo {$field} excede o tamanho máximo ({$rule['max']} caracteres).";
                 continue;
             }
 
             if ($field === 'email') {
-                $this->validateEmail($sanitized[$field], $errors);
+                $errors = $this->validateEmail($data[$field], $errors);
             }
         }
 
-        return ['errors' => $errors, 'sanitized' => $sanitized];
+        return ['errors' => $errors, 'sanitized' => $data];
     }
-
 }

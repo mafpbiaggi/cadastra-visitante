@@ -35,5 +35,4 @@ class VisitanteModel {
             return ['status' => 'false', 'msg' => 'Envio de dados não efetuado.\nContate o administrador.'];
         }
     }
-
 }

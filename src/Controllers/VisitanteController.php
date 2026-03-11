@@ -15,19 +15,20 @@ class VisitanteController {
     public function store(array $data)
     {
         header('Content-Type: application/json');
-
-        echo json_encode(['status' => 'true', 'msg' => implode("\n", $data)]);
+        $result = [];
 
         $validator = new BaseValidator();
         $result = $validator->validateAllFields($data);
 
-        $errors=$result['errors'];
+        $errors = $result['errors'];
+        $data = $result['sanitized'];
 
         if ($errors) {
-            echo json_encode(['status' => 'false', 'msg' => implode("\n", $errors)]);
+            echo json_encode(['status' => false, 'msg' => implode("\n", $errors)]);
             exit;
         }
 
-        echo "{$data}";
+        $msg = "Dados enviados com sucesso.";
+        echo json_encode(['status' => true, 'msg' => $msg]);
     }
 }

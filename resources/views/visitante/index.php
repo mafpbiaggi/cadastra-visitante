@@ -58,7 +58,7 @@
 
                     <div class="box form-group">
                         <label for="nome">Qual é o seu nome? <span class="required">*</span></label>
-                        <input class="form-control" name="nome" id="nome" maxlength="30" type="text" required>
+                        <input class="form-control" name="nome" id="nome" maxlength="50" type="text" required>
                     </div>
 
                     <div class="box form-group">
@@ -73,23 +73,23 @@
 
                     <div class="box form-group">
                         <label for="email">Qual o seu e-mail? <span class="required">*</span></label>
-                        <input class="form-control" name="email" id="email" type="email" autocomplete="off" required>
+                        <input class="form-control" name="email" id="email" type="text" autocomplete="off" required>
                     </div>
 
                     <div class="box form-group">
                         <label for="frequentaIgreja">Você frequenta alguma igreja? Se sim, qual?</label>
-                        <input class="form-control" name="frequentaIgreja" id="frequentaIgreja" maxlength="50" type="text">
+                        <input class="form-control" name="frequentaIgreja" id="frequentaIgreja" maxlength="70" type="text">
                     </div>
 
                     <div class="box form-group">
                         <label for="pedidoOracao">Gostaríamos de orar por você. Há algum pedido especial?</label>
-                        <input class="form-control" name="pedidoOracao" id="pedidoOracao" maxlength="50" type="text">
+                        <input class="form-control" name="pedidoOracao" id="pedidoOracao" maxlength="70" type="text">
                     </div>
 
                     <fieldset class="box form-group">
                         <legend class="form-legend">Como você ficou sabendo de nós? <span class="required">*</span></legend>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="origem" id="indicacao" value="indicacao">
+                            <input class="form-check-input" type="radio" name="origem" id="indicacao" value="indicacao" required>
                             <label class="form-check-label" for="indicacao">Indicação</label>
                         </div>
 
