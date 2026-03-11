@@ -18,6 +18,7 @@ class VisitanteController {
         $result = [];
 
         $validator = new BaseValidator();
+        $data = $validator->checkFields($data);
         $result = $validator->validateAllFields($data);
 
         $errors = $result['errors'];
