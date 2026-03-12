@@ -8,17 +8,8 @@ class CsrfToken {
     private const SESSION_TIME = 'csrf_token_time';
     private const EXPIRY = 300;
 
-    public static function start(): void
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-    }
-
     public static function generate(): string
     {
-        self::start();
-
         if (empty($_SESSION[self::SESSION_KEY])) {
             $_SESSION[self::SESSION_KEY] = bin2hex(random_bytes(32));
             $_SESSION[self::SESSION_TIME] = time();
@@ -29,8 +20,6 @@ class CsrfToken {
 
     public static function validate(string $token): bool
     {
-        self::start();
-
         $sessionToken = $_SESSION[self::SESSION_KEY] ?? '';
         $sessionTime = $_SESSION[self::SESSION_TIME] ?? 0;
         
