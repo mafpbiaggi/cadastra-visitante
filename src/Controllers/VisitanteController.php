@@ -18,7 +18,6 @@ class VisitanteController extends BaseController {
 
     public function store(array $data)
     {
-        header('Content-Type: application/json; charset=utf-8');
         $submittedToken = $data['csrf_token'] ?? '';
 
         if (!CsrfToken::validate($submittedToken)) {
