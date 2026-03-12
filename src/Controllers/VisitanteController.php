@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Validator\BaseValidator;
 use App\Config\Database;
 use App\Security\CsrfToken;
+use App\Security\RateLimiter;
 use App\Models\VisitanteModel;
 
 class VisitanteController extends BaseController {
@@ -24,6 +25,12 @@ class VisitanteController extends BaseController {
             $this->json(false, 'Requisição inválida. Recarregue a página e tente novamente.', $submittedToken, 403);
             exit;
         }
+
+        if (!RateLimiter::check()) {
+            $this->json(false, 'Aguarde alguns segundos antes de tentar novamente.', '', 429);
+            exit;
+        }
+
 
         CsrfToken::invalidate();
         $newToken = CsrfToken::generate();
@@ -49,6 +56,7 @@ class VisitanteController extends BaseController {
         $success = $mdl->addVisitante($data);
 
         if ($success) {
+            RateLimiter::register();
             $this->json(true, 'Dados enviados com sucesso.', $newToken);
     
         } else {
