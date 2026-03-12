@@ -14,7 +14,8 @@ class BaseValidator {
         'frequentaIgreja' => ['required' => false, 'max' => 70],
         'pedidoOracao' => ['required' => false, 'max' => 70],
         'origem' => ['required' => true],
-        'outroComplemento' => ['required' => false, 'max' => 50],
+        'outroComp' => ['required' => false, 'max' => 50],
+        'redesSociaisComp' => ['required' => false, 'max' => 50],
     ];
 
     public function sanitizeField(array $data, string $field)

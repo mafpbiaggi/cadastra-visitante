@@ -25,10 +25,10 @@
     </header>
 
     <main class="container">
-        <section class="row justify-content-center mt-4">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <section class="row justify-content-center">
+            <div class="col-12 col-sm-12 col-md-10 col-lg-7">
                 <div class="box hello">
-                    <p class="hello-title"><b>Olá visitante, bem vindo(a)!</b></p>
+                    <p class="hello-title"><b>Olá visitante, bem vindo!</b></p>
 
                     <p>Ficamos muito felizes em receber você aqui.</p>
 
@@ -43,13 +43,13 @@
                     <p>Caso tenha dúvidas ou solicitações relacionadas aos seus dados pessoais,
                         entre em contato pelo e-mail <b>conselhoipvp@gmail.com</b>.</p>
 
-                    <p>Agradecemos muito pelo seu tempo e pela sua colaboração.Vamos começar?</p>
+                    <p>Agradecemos muito pelo seu tempo e pela sua colaboração. Vamos começar?</p>
                 </div>
             </div>
         </section>
 
-        <section class="row justify-content-center mt-4">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <section class="row justify-content-center">
+            <div class="col-12 col-sm-12 col-md-10 col-lg-7">
                 <form method="POST" id="form">
                     <?php echo App\Security\CsrfToken::getHiddenField(); ?>
                     <div class="box form-group">
@@ -100,20 +100,29 @@
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="origem" id="moroPerto" value="moroPerto">
+                            <input class="form-check-input" type="radio" name="origem" id="moroPerto" value="moro_Perto">
                             <label class="form-check-label" for="moroPerto">Moro perto</label>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="origem" id="redesSociais" value="redesSociais">
-                            <label class="form-check-label" for="redesSociais">Redes sociais</label>
+                            <input class="form-check-input" type="radio" name="origem" id="redesSociais" value="redes_Sociais">
+                            <div class="d-flex">
+                                <label class="form-check-label" for="redesSociais">Redes sociais</label>
+                                <div class="col-lg-10 ms-auto">
+                                    <input class="form-control form-control-sm" name="redesSociaisComp" id="redesSociaisComp" type="text" placeholder="Youtube, Instagram (Principal ou Jovens)" maxlength="50" disabled="disabled">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="origem" id="outro" value="outro">
-                            <label class="form-check-label" for="outro">Outro</label>
+                            <div class="d-flex">
+                                <label class="form-check-label" for="outro">Outro</label>
+                                <div class="col-lg-10 ms-auto">
+                                    <input class="form-control form-control-sm" name="outroComp" id="outroComp" type="text" maxlength="50" disabled="disabled">
+                                </div>
+                            </div>
                         </div>
-                        <input class="form-control mt-2" name="outroComplemento" id="outroComplemento" type="text" disabled="disabled">
                     </fieldset>
                     
                     <div id="divAlerta" role="alert" class="alert">
@@ -125,8 +134,8 @@
                             de seus dados pessoais conforme os termos acima.</p>
                     </div>
 
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-success btn-sm">Enviar</button>
+                    <div class="button-area">
+                        <button type="submit" class="btn btn-success btn-sm inlineRight">Enviar</button>
                     </div>
                 </form>
             </div>

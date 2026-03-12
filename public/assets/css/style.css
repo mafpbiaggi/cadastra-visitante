@@ -1,7 +1,7 @@
 :root {
     --bg-main: #f6f6f6;
     --white: #ffffff;
-    --border-color: #e6e6e6;
+    --border-color: #d6d6d6;
     --primary: #29472b;
 }
 
@@ -70,8 +70,12 @@ img {
 }
 
 .form-check {
-    margin-top: -15px;
+    margin-top: -10px;
     font-size: .875rem;
+}
+
+.form-check label {
+    font-weight: normal;
 }
 
 .alert {
@@ -84,6 +88,19 @@ img {
     color: red;
 }
 
+.inlineRight {
+    float: right;
+}
+
+.button-area {
+    margin: 30px 0 70px 0;
+}
+
+.btn-success {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /* Tablet */
 @media (min-width: 600px) and (max-width: 1024px) {
 
@@ -91,7 +108,7 @@ img {
         padding: 20px 5px;
         font-size: 1rem;
     }
-e
+
     .form-body {
         padding-left: 100px;
     }
