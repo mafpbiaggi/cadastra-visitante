@@ -25,7 +25,7 @@ if (form) {
         const dadosForm = new FormData(form);
 
         try {
-            const dados = await fetch("index.php", {
+            const dados = await fetch("/", {
                 method: "POST",
                 body: dadosForm
             });
