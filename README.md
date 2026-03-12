@@ -112,6 +112,7 @@ CREATE TABLE visitantes (
 > Caso opte por removê-los, será necessário também ajustar a query de inserção em `src/Models/VisitanteModel.php`,
 > removendo esses campos e seus respectivos valores.
 
-## Dados do Desenvoldor
+## Dados do Desenvolvedor
 
 **Nome**: Marco Aurélio Biaggi ([@mafpbiaggi](https://github.com/mafpbiaggi)).
+
