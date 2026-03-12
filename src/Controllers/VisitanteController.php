@@ -21,7 +21,7 @@ class VisitanteController extends BaseController {
         $submittedToken = $data['csrf_token'] ?? '';
 
         if (!CsrfToken::validate($submittedToken)) {
-            $this->json(false, 'Requisição inválida. Recarregue a página e tente novamente.', $submittedToken, 403);
+            $this->json(false, 'Requisição inválida. Recarregue a página e tente novamente.', '', 403);
             exit;
         }
 
@@ -29,7 +29,6 @@ class VisitanteController extends BaseController {
             $this->json(false, 'Aguarde alguns segundos antes de tentar novamente.', '', 429);
             exit;
         }
-
 
         CsrfToken::invalidate();
         $newToken = CsrfToken::generate();
