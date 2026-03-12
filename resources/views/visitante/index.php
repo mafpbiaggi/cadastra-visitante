@@ -1,3 +1,9 @@
+<?php
+    require_once __DIR__ . '/../../../vendor/autoload.php';
+    use App\Security\CsrfToken;
+    CsrfToken::start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -51,6 +57,7 @@
         <section class="row justify-content-center mt-4">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6">
                 <form method="POST" id="form">
+                    <?php echo App\Security\CsrfToken::getHiddenField(); ?>
                     <div class="box form-group">
                         <label for="dataVisita">Quando você nos visitou? <span class="required">*</span></label>
                         <input class="form-control" name="dataVisita" id="dataVisita" type="date" required>
