@@ -39,7 +39,7 @@ class Database {
 
             } catch (PDOException $e) {
                 error_log($e->getMessage());
-                return ['status' => 'false', 'msg' => 'Não foi possível iniciar a conexão.'];
+                throw $e;
             }
         }
 

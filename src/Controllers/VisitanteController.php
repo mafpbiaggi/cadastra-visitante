@@ -7,6 +7,7 @@ use App\Config\Database;
 use App\Security\CsrfToken;
 use App\Security\RateLimiter;
 use App\Models\VisitanteModel;
+use PDOException;
 
 class VisitanteController extends BaseController {
 
@@ -47,8 +48,14 @@ class VisitanteController extends BaseController {
             exit;
         }
         
-        $db = new Database();
-        $conn = $db->getInstance();
+        try {
+            $db = new Database();
+            $conn = $db->getInstance();
+        
+        } catch (PDOException) {
+            $this->json(false, 'Não foi possível conectar no banco de dados.', $newToken);
+            exit;
+        }
         
         $mdl = new VisitanteModel($conn);
         $success = $mdl->addVisitante($data);
