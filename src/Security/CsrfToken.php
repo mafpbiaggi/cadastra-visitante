@@ -29,6 +29,10 @@ class CsrfToken
         self::start();
 
         $sessionToken = $_SESSION[self::SESSION_KEY] ?? '';
+        
+        if (empty($sessionToken) || empty($token)) {
+            return false;
+        }
 
         return hash_equals($sessionToken, $token);
     }

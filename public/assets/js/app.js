@@ -32,6 +32,11 @@ if (form) {
 
             const resposta = await dados.json();
 
+            const csrfInput = form.querySelector('input[name="csrf_token"]');
+            if (csrfInput && resposta['csrf_token']) {
+                csrfInput.value = resposta['csrf_token'];
+            }
+
             if (resposta['status']) {
                 preparaSaida("alert alert-success", resposta['msg']);
                 form.reset();

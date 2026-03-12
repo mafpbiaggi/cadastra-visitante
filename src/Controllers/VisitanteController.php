@@ -21,10 +21,12 @@ class VisitanteController extends BaseController {
         $submittedToken = $data['csrf_token'] ?? '';
 
         if (!CsrfToken::validate($submittedToken)) {
-            CsrfToken::invalidate();
-            $this->json(false, 'Token inválido.', 403);
+            $this->json(false, 'Requisição inválida. Recarregue a página e tente novamente.', $submittedToken, 403);
             exit;
         }
+
+        CsrfToken::invalidate();
+        $newToken = CsrfToken::generate();
 
         unset($data['csrf_token']);
 
@@ -36,7 +38,7 @@ class VisitanteController extends BaseController {
         $data = $result['sanitized'];
 
         if ($errors) {
-            $this->json(false, implode("\n", $errors));
+            $this->json(false, implode("\n", $errors), $newToken);
             exit;
         }
         
@@ -47,10 +49,10 @@ class VisitanteController extends BaseController {
         $success = $mdl->addVisitante($data);
 
         if ($success) {
-            $this->json(true, 'Dados enviados com sucesso.');
+            $this->json(true, 'Dados enviados com sucesso.', $newToken);
     
         } else {
-            $this->json(false, 'Não foi possível enviar os dados.');
+            $this->json(false, 'Não foi possível enviar os dados.', $newToken);
         }
     }
 }
