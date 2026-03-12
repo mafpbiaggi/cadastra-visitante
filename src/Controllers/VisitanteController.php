@@ -3,19 +3,30 @@
 namespace App\Controllers;
 
 use App\Validator\BaseValidator;
+use App\Config\Database;
+use App\Security\CsrfToken;
 use App\Models\VisitanteModel;
 
-class VisitanteController {
+class VisitanteController extends BaseController {
 
     public function index(): void
     {
+        CsrfToken::generate();
         require_once __DIR__ . '/../../resources/views/visitante/index.php';
     }
 
     public function store(array $data)
     {
-        header('Content-Type: application/json');
-        $result = [];
+        header('Content-Type: application/json; charset=utf-8');
+        $submittedToken = $data['csrf_token'] ?? '';
+
+        if (!CsrfToken::validate($submittedToken)) {
+            CsrfToken::invalidate();
+            $this->json(false, 'Token inválido.', 403);
+            exit;
+        }
+
+        unset($data['csrf_token']);
 
         $validator = new BaseValidator();
         $data = $validator->checkFields($data);
@@ -25,11 +36,21 @@ class VisitanteController {
         $data = $result['sanitized'];
 
         if ($errors) {
-            echo json_encode(['status' => false, 'msg' => implode("\n", $errors)]);
+            $this->json(false, implode("\n", $errors));
             exit;
         }
+        
+        $db = new Database();
+        $conn = $db->getInstance();
+        
+        $mdl = new VisitanteModel($conn);
+        $success = $mdl->addVisitante($data);
 
-        $msg = "Dados enviados com sucesso.";
-        echo json_encode(['status' => true, 'msg' => $msg]);
+        if ($success) {
+            $this->json(true, 'Dados enviados com sucesso.');
+    
+        } else {
+            $this->json(false, 'Não foi possível enviar os dados.');
+        }
     }
 }
