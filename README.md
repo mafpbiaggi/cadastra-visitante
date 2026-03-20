@@ -1,5 +1,7 @@
 # Cadastra Visitante
 
+[![Docker build environment](https://github.com/mafpbiaggi/cadastra-visitante/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mafpbiaggi/cadastra-visitante/actions/workflows/docker-build.yml)
+
 Aplicação web para cadastro de visitantes a um estabelecimento. Desenvolvida como complemento a um sistema externo,
 utilizando o banco de dados desse sistema para persistência dos dados.
 
@@ -115,4 +117,3 @@ CREATE TABLE visitantes (
 ## Dados do Desenvolvedor
 
 **Nome**: Marco Aurélio Biaggi ([@mafpbiaggi](https://github.com/mafpbiaggi)).
-
