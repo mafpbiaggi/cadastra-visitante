@@ -1,0 +1,47 @@
+name: Continuous delivery
+
+on:
+  push:
+    branches: [ 'main' ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [ on-premises ]
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare script to be copied
+        run: |
+          sed -i \
+            -e "s/db_host_change/${{ secrets.DB_HOST }}/" \
+            -e "s/db_database_change/${{ secrets.DB_DATABASE }}/" \
+            -e "s/db_user_change/${{ secrets.DB_USER }}/" \
+            -e "s/db_pass_change/${{ secrets.DB_PASS }}/" \
+            -e "s/db_port_change/${{ secrets.DB_PORT }}/" \
+            -e "s/port_mapping_change/${{ secrets.PORT_MAPPING }}/" \
+            -e "s|app_dir_change|${{ secrets.APP_DIR }}|" \
+            "deploy/deploy.sh" 
+
+      - name: Copy deploy script to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "deploy/deploy.sh"
+          target: "/tmp"
+
+      - name: Execute script deploy.sh
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: sudo chmod +x /tmp/deploy/deploy.sh && sudo /tmp/deploy/deploy.sh
