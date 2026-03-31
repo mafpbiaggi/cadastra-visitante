@@ -13,22 +13,30 @@ jobs:
     environment: ${{ matrix.environment }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Prepare script to be copied
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          PORT_MAPPING: ${{ secrets.PORT_MAPPING }}
+          APP_DIR: ${{ secrets.APP_DIR }}
         run: |
           sed -i \
-            -e "s|db_host_change|${{ secrets.DB_HOST }}|" \
-            -e "s|db_database_change|${{ secrets.DB_DATABASE }}|" \
-            -e "s|db_user_change|${{ secrets.DB_USER }}|" \
-            -e "s|db_pass_change|${{ secrets.DB_PASS }}|" \
-            -e "s|db_port_change|${{ secrets.DB_PORT }}|" \
-            -e "s|port_mapping_change|${{ secrets.PORT_MAPPING }}|" \
-            -e "s|app_dir_change|${{ secrets.APP_DIR }}|" \
+            -e "s|db_host_change|$DB_HOST|" \
+            -e "s|db_database_change|$DB_DATABASE|" \
+            -e "s|db_user_change|$DB_USER|" \
+            -e "s|db_pass_change|$DB_PASS|" \
+            -e "s|db_port_change|$DB_PORT|" \
+            -e "s|port_mapping_change|$PORT_MAPPING|" \
+            -e "s|app_dir_change|$APP_DIR|" \
             "deploy/deploy.sh" 
 
       - name: Copy deploy script to server
-        uses: appleboy/scp-action@v1
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -38,7 +46,7 @@ jobs:
           target: "/tmp"
 
       - name: Execute script deploy.sh
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
