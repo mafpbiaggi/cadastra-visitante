@@ -1,6 +1,7 @@
 # Cadastra Visitante
 
 [![Docker build environment](https://github.com/mafpbiaggi/cadastra-visitante/actions/workflows/docker-build.yml/badge.svg)](https://github.com/mafpbiaggi/cadastra-visitante/actions/workflows/docker-build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mafpbiaggi_cadastra-visitante&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mafpbiaggi_cadastra-visitante)
 
 Aplicação web para cadastro de visitantes a um estabelecimento. Desenvolvida como complemento a um sistema externo,
 utilizando o banco de dados desse sistema para persistência dos dados.
