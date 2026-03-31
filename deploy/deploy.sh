@@ -27,6 +27,7 @@ function set_env() {
     -e "s/DB_PASS=.*/DB_PASS=$DB_PASS/" \
     -e "s/DB_PORT=.*/DB_PORT=$DB_PORT/" \
     -e "s/PORT_MAPPING=.*/PORT_MAPPING=$PORT_MAPPING/" \
+    -e "s|ROOT_DIR=.*|ROOT_DIR=$APP_DIR|" \
     "$APP_DIR/docker/.env"
 }
 
@@ -51,7 +52,7 @@ function docker_up() {
 }
 
 function docker_down() {
-    docker compose -f "$APP_DIR/docker/docker-compose.yaml" down
+    docker compose -f "$APP_DIR/docker/docker-compose.yaml" down || true
 }
 
 function compose_install() {
