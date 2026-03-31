@@ -18,12 +18,12 @@ jobs:
       - name: Prepare script to be copied
         run: |
           sed -i \
-            -e "s/db_host_change/${{ secrets.DB_HOST }}/" \
-            -e "s/db_database_change/${{ secrets.DB_DATABASE }}/" \
-            -e "s/db_user_change/${{ secrets.DB_USER }}/" \
-            -e "s/db_pass_change/${{ secrets.DB_PASS }}/" \
-            -e "s/db_port_change/${{ secrets.DB_PORT }}/" \
-            -e "s/port_mapping_change/${{ secrets.PORT_MAPPING }}/" \
+            -e "s|db_host_change|${{ secrets.DB_HOST }}|" \
+            -e "s|db_database_change|${{ secrets.DB_DATABASE }}|" \
+            -e "s|db_user_change|${{ secrets.DB_USER }}|" \
+            -e "s|db_pass_change|${{ secrets.DB_PASS }}|" \
+            -e "s|db_port_change|${{ secrets.DB_PORT }}|" \
+            -e "s|port_mapping_change|${{ secrets.PORT_MAPPING }}|" \
             -e "s|app_dir_change|${{ secrets.APP_DIR }}|" \
             "deploy/deploy.sh" 
 
