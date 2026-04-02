@@ -40,6 +40,7 @@ function git_clone() {
 function git_pull() {
     log "Updating project files..."
     git -C "$APP_DIR" pull
+    set_env
 }
 
 function set_permissions() {
