@@ -49,6 +49,7 @@ function set_permissions() {
 function docker_up() {
     docker compose -f "$APP_DIR/docker/docker-compose.yaml" up -d --build
     docker network connect scripts_proxy_network app_cadastra_visitante 2>/dev/null || true
+    docker network connect sig app_cadastra_visitante 2>/dev/null || true
 }
 
 function docker_down() {
