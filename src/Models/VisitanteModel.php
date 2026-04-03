@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Config\Database;
 use PDOException;
 
 class VisitanteModel {
@@ -20,7 +19,7 @@ class VisitanteModel {
 
             $stmt = $this->conn->prepare("INSERT INTO visitantes (dataVisita, nome, idade, email, telefone, frequentaIgreja,
                                     pedidoOracao, origem, outroComp, redesSociaisComp, user_id, church_id, created, modified) VALUES (:dataVisita, :nome, :idade, :email,
-                                    :telefone, :frequentaIgreja, :pedidoOracao, :origem, :outroComp, :redesSociaisComp, 66, 22, NOW(), NOW())");
+                                    :telefone, :frequentaIgreja, :pedidoOracao, :origem, :outroComp, :redesSociaisComp, 66, 1, NOW(), NOW())");
             
             $stmt->bindValue(':dataVisita', $data['dataVisita']);
             $stmt->bindValue(':nome', $data['nome']);
